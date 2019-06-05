@@ -1,0 +1,377 @@
+/* -----------------------
+Base styles
+Adapted from: https://github.com/russmaxdesign/example-layout-one-full
+------------------------*/
+
+body, div, h1, h2, h3, p, img {
+	margin: 0; padding: 0; border: 0;
+}
+
+body {
+    background:#fff;
+    font-family: Sans-Serif;
+    height:100%;
+    font-size: 1em;
+	margin: 0;
+	color: #333;
+	font-family: 'Roboto'; 
+	font-weight: 300;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+	margin: 0 0 .5em;
+	font-weight: 500;
+	line-height: 1.1;
+}
+
+h1 { font-size: 2.25em; } /* 36px */
+h2 { font-size: 1.75em; } /* 28px */
+h3 { font-size: 1.375em; } /* 22px */
+h4 { font-size: 1.125em; } /* 18px */
+h5 { font-size: 1em; } /* 16px */
+h6 { font-size: 1em; } /* 14px */
+
+
+blockquote
+{
+	padding: 1em 2em;
+	margin: 0 0 2em;
+	border-left: 5px solid #eee;
+}
+
+hr
+{
+	height: 0;
+	margin-top: 1em;
+	margin-bottom: 2em;
+	border: 0;
+	border-top: 1px solid #ddd;
+}
+
+table
+{
+	background-color: transparent;
+	border-spacing: 0;
+	border-collapse: collapse;
+	border-top: 1px solid #ddd;
+}
+
+th, td
+{
+	padding: .5em 1em;
+	vertical-align: top;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+/* -----------------------
+Layout styles
+------------------------*/
+
+.container
+{
+	max-width: 900px;
+	margin: 0;
+}
+
+.header
+{
+	color: #fff;
+	background: #999;
+	padding: 1em 1.25em;
+}
+
+.header-heading { margin: 0; }
+
+.nav-bar
+{
+	background: #000;
+	padding: 0;
+    white-space: nowrap;
+    width:100%;
+/*		    margin:auto;*/
+    display:block;
+}
+
+.content
+{
+	background-color: white;
+}
+
+.footer
+{
+	color: #fff;
+	background: #000;
+	padding: 1em 1.25em;
+}
+
+/* -----------------------
+Nav
+------------------------*/
+
+.nav
+{
+	width: 100%;
+	background: #000;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nav li
+{
+	display: inline;
+	margin: 0;
+	color: #fff;
+}
+
+.nav t1
+{
+	display: block;
+	margin: 0;
+	font-size: 20pt;
+	padding: .7em 1.25em;
+	color: #fff;
+	font-family: Roboto;
+	font-weight: 900;
+	border-bottom: 1px solid gray;
+}
+
+.nav a
+{
+	display: block;
+	padding: .7em 1.25em;
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px solid gray;
+	font-weight: 400px;
+}
+
+.nav a:link { color: white; }
+.nav a:visited { color: white; }
+
+.nav a:focus
+{
+	color: black;
+	background-color: white;
+}
+
+.nav a:hover
+{
+	color: white;
+	background-color: rgb(0, 136, 255);
+}
+
+.nav a:active
+{
+	color: white;
+	background-color: #777;
+}
+
+/* -----------------------
+Single styles
+------------------------*/
+
+.img-responsive { max-width: 100%; }
+
+.btn
+{
+	color: #fff !important;
+	background-color: royalblue;
+	border-color: #222;
+	display: inline-block;
+	padding: .5em 1em;
+	margin-bottom: 0;
+	font-weight: 300;
+	line-height: 1.2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: .2em;
+	text-decoration: none;
+}
+
+.btn:hover
+{
+	color: #fff !important;
+	background-color: green;
+}
+
+.btn:focus
+{
+	color: #fff !important;
+	background-color: black;
+}
+
+.btn:active
+{
+	color: #fff !important;
+	background-color: red;
+}
+
+.table
+{
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 20px;
+}
+
+/*.list-unstyled
+{
+	padding-left: 0;
+	list-style: none;
+}
+
+.list-inline
+{
+	padding-left: 0;
+	margin-left: 5px;
+	list-style: none;
+}
+
+.list-inline > li
+{
+	display: inline-block;
+	padding-right: 5px;
+	padding-left: 5px;
+}*/
+
+
+/* ------ MY ORIGINAL CUSTOMIZATIONS ------ */
+
+#head {border: 1px solid black;}
+#tab1 {border: 1px solid black;}
+#tdright {text-align: right;}
+table {
+	font-family: 'Roboto'; 
+	font-weight: 300;
+	max-width: 900px;
+}
+p {
+	font-family: 'Roboto'; 
+	font-weight: 300;
+	margin: 0 0 1.5em;
+}
+#container {
+	max-width: 900px;
+	text-align: left;
+}
+#content
+{
+	background-color: white;
+}
+#left {
+	width: 60%;
+	padding-top: 20px;
+	padding-left: 2%;
+	float: left;
+}
+#right {
+	width: 32%;
+	padding-top: 20px;
+	padding-left: 2%;
+	padding-right: 2%;
+	float: right;
+}
+#research {
+	padding-top: 20px;
+	float: left;
+	padding-left: 2%;
+	padding-right: 5%;
+}
+
+t1 {font-family: 'Open Sans'; font-weight: 900;}
+t2 {font-family: 'Roboto'; font-weight: 500;}
+b {font-weight: 300;}
+strong {font-family: 'Open Sans'; font-weight: 700;}
+tiny {font-size: 5pt;}
+
+a:link {color:#777777;}
+a:visited {color:#777777; text-decoration:none;}
+a:hover {color: rgb(0, 136, 255); text-decoration:none;}
+a:active {color: rgb(0, 136, 255); text-decoration:none;}
+
+
+
+
+/* ------ SIZE ADAPTIVE ------ */
+
+/*  If widescreen:  */
+
+@media (min-width: 500px)
+{
+	.header { padding: 1.5em 3em; }
+	.nav-bar
+	{
+		background: #000;
+		padding: 1em 0em;
+		position: fixed;
+	    white-space: nowrap;
+	    width:100%;
+	    display:table;
+	    height: 25px;
+	    line-height:25px;
+	}
+	.content { padding: 2em 3em; }
+	.footer { padding: 2em 3em; }
+
+	.nav
+	{
+		width: 0%;
+		background: #000;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		position: fixed;
+	}
+	
+	.nav li
+	{
+		display: inline;
+		margin: 0 1em 0 0;
+	}
+	
+	.nav t1
+	{
+		display: inline;
+		margin-left: 0px;
+		margin-right: 32px;
+		padding: 0;
+		border-bottom: 0;
+	}
+
+	.nav a
+	{
+		display: inline;
+		padding: 0;
+		border-bottom: 0;
+		font-weight: 500;
+		font-size: 1.1em;
+	}
+	
+	#left {
+		padding-top: 50px;
+	}
+	#right {
+		padding-top: 50px;
+	}
+	#research {
+		padding-top: 50px;
+	}
+}
+
+/*  If small (phone, tablet):  */
+@media screen and (max-width: 500px) {
+    #container { display: flex; flex-flow: column; }
+    #right { 
+		width: 95%;
+		order: 1;
+	 }
+    #left { 
+		width: 95%;
+		order: 2;  
+	}
+}
