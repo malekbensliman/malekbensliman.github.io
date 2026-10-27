@@ -17,13 +17,17 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "teaching.html", "research.html"]
+PAGES = ["index.html", "projects.html", "teaching.html", "research.html"]
 WIDTHS = [1280, 768, 390]
 PORT = 8765
 BASE = f"http://localhost:{PORT}"
 SHOTS = ROOT / "docs" / "superpowers" / "screens"
 
 OVERFLOW_JS = "document.documentElement.scrollWidth <= window.innerWidth"
+LOAD_ALL_IMAGES_JS = """Promise.all([...document.images].map(i => {
+  i.loading = "eager";
+  return i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; });
+}))"""
 BROKEN_IMAGES_JS = "[...document.images].filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src)"
 
 
@@ -69,6 +73,8 @@ def main():
                         # The photo must not become a tall, narrow strip (e.g. iPad portrait).
                         results.append((f"{tag} hero photo not a tall strip", box["height"] <= box["width"] * 1.2,
                                         f"{box['width']:.0f}x{box['height']:.0f}"))
+                    # Lazy images load only near the viewport: force them to load, then wait.
+                    page.evaluate(LOAD_ALL_IMAGES_JS)
                     broken = page.evaluate(BROKEN_IMAGES_JS)
                     results.append((f"{tag} images", not broken, f"broken: {broken}"))
                     results.append((f"{tag} console", not errors, f"errors: {errors}"))

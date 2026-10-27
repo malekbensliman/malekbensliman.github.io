@@ -188,6 +188,44 @@ h1, h2, h3, p { margin: 0; }
 .pub summary { cursor: pointer; color: var(--link); font-size: 14px; font-weight: 500; }
 .pub details p { margin-top: 10px; font-size: 15px; color: #333; }
 
+/* ---------- Projects page ---------- */
+
+.see-all { margin-top: 14px; font-size: 14px; font-weight: 500; }
+
+.project-entry {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 32px;
+  align-items: start;
+  border-top: 1px solid var(--rule);
+  padding: 28px 0;
+  scroll-margin-top: 24px;
+}
+.project-entry:first-of-type { margin-top: 28px; }
+.project-entry:last-of-type { border-bottom: 1px solid var(--rule); }
+
+.project-shot {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: left top;
+  border: 1px solid var(--rule);
+}
+.shot-block { display: flex; align-items: flex-end; padding: 18px; border: 0; }
+.shot-block span { font-weight: 800; font-size: 26px; line-height: 1.05; letter-spacing: -0.02em; }
+.shot-teaching { background: #9cc3e4; color: #0f2445; }
+.shot-research { background: #e3eef8; color: #1d3a6e; }
+
+.project-body h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+.project-meta { margin: 8px 0 12px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.project-summary { max-width: 62ch; }
+.project-links { margin-top: 12px; font-size: 14px; font-weight: 600; }
+
+/* ---------- Teaching: headshot ---------- */
+
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; max-width: 760px; }
+.headshot { width: 140px; height: 140px; object-fit: cover; object-position: 52% 18%; margin-top: 32px; }
+
 /* ---------- Footer ---------- */
 
 .site-footer .wrap {
@@ -218,6 +256,9 @@ h1, h2, h3, p { margin: 0; }
   .hero h1 { font-size: 32px; }
 
   .page-title { font-size: 30px; margin-top: 32px; }
+
+  .project-entry { grid-template-columns: 1fr; gap: 16px; }
+  .headshot { width: 96px; height: 96px; margin-top: 24px; }
 
   .project .row {
     grid-template-columns: auto 1fr auto;

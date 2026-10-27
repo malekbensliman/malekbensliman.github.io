@@ -15,7 +15,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "teaching.html", "research.html"]
+PAGES = ["index.html", "projects.html", "teaching.html", "research.html"]
 
 INTRO = (
     "I work on how organizations can use AI to learn from unconventional data, "
@@ -44,7 +44,7 @@ PROJECTS = [
 
 NAV = [
     ("Teaching", "teaching.html"),
-    ("Projects", "index.html#projects"),
+    ("Projects", "projects.html"),
     ("Research", "research.html"),
     ("CV", "cv.pdf"),
 ]
@@ -249,6 +249,47 @@ def check_stylesheet_versioned():
     for page in existing_pages():
         hrefs = [l["href"] for l in soup(page).select('link[rel="stylesheet"]') if "style.css" in l["href"]]
         assert hrefs and all(re.fullmatch(r"style\.css\?v=\d+", h) for h in hrefs), f"{page}: {hrefs}"
+
+
+# (id, name, tag class, [(link label, href)], used-in text or None)
+PROJECT_PAGE = [
+    ("the-ai-list", "The A(I) List", "tag-ai", [("Live", "https://the-ai-list.io/")], "Generative AI for Business"),
+    ("geo-brand-tracker", "GEO Brand Tracker", "tag-ai",
+     [("Live", "https://geo-brand-tracker--geo-brand-tracker.us-central1.hosted.app/")], "Generative AI for Business"),
+    ("mba-copilot", "MBA Copilot", "tag-teaching", [("Code", "https://github.com/malekbensliman/mba-copilot")],
+     "Generative AI for Business"),
+    ("cbs-concept-lab", "CBS Concept Lab", "tag-teaching", [("Live", "https://cbs-concept-lab.web.app/")],
+     "marketing and statistics courses"),
+    ("copa-machina", "Copa Machina", "tag-experiment", [("Live", "https://copa-machina.vercel.app/")], None),
+    ("art-valuation", "Art valuation", "tag-research", [("Paper", "research.html#art-valuation")], None),
+]
+
+
+def check_projects_page():
+    s = soup("projects.html")
+    entries = s.select(".project-entry")
+    assert len(entries) == len(PROJECT_PAGE), f"{len(entries)} entries"
+    for el, (pid, name, tag, links, used) in zip(entries, PROJECT_PAGE):
+        assert el.get("id") == pid, f"{name}: id {el.get('id')}"
+        assert squash(el.h2.get_text()) == name, f"order/name: {squash(el.h2.get_text())}"
+        assert el.select_one(f".tag.{tag}"), f"{name}: tag {tag}"
+        got = [(squash(a.get_text()).rstrip(" ↗→"), a["href"]) for a in el.select(".project-links a")]
+        assert got == links, f"{name}: links {got}"
+        assert len(squash(el.select_one(".project-summary").get_text())) > 120, f"{name}: summary too short"
+        if used:
+            assert used in squash(el.get_text()), f"{name}: used-in {used!r}"
+        assert el.select_one("img.project-shot, .project-shot"), f"{name}: no image/block"
+
+
+def check_home_links_to_projects_page():
+    s = soup("index.html")
+    more = [a for a in s.select("#projects a") if a["href"] == "projects.html"]
+    assert more and "See all projects" in squash(more[0].get_text()), "no 'See all projects' link"
+
+
+def check_teaching_headshot():
+    img = soup("teaching.html").select_one("img.headshot")
+    assert img and img["src"] == "photo-headshot.jpg", "teaching page headshot"
 
 
 def check_head():
