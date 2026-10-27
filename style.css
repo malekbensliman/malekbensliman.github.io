@@ -6,8 +6,8 @@
   --muted: #555;
   --rule: #e2e2e2;
   --link: #1d3a6e;
-  --wrap: 1040px;
-  --gutter: 32px;
+  --wrap: 1280px;
+  --gutter: clamp(32px, 4vw, 64px);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -141,6 +141,7 @@ h1, h2, h3, p { margin: 0; }
 /* ---------- Home: projects ---------- */
 
 #projects { margin-top: 60px; scroll-margin-top: 24px; }
+#publication { margin-top: 48px; }
 
 .projects { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
 
@@ -214,7 +215,6 @@ h1, h2, h3, p { margin: 0; }
 .shot-block { display: flex; align-items: flex-end; padding: 18px; border: 0; }
 .shot-block span { font-weight: 800; font-size: 26px; line-height: 1.05; letter-spacing: -0.02em; }
 .shot-teaching { background: #9cc3e4; color: #0f2445; }
-.shot-research { background: #e3eef8; color: #1d3a6e; }
 
 .project-body h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
 .project-meta { margin: 8px 0 12px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
@@ -241,6 +241,21 @@ h1, h2, h3, p { margin: 0; }
 }
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--link); }
+
+/* ---------- Large screens ---------- */
+
+@media (min-width: 1440px) {
+  body { font-size: 17px; }
+  .hero { min-height: 460px; }
+  .hero h1 { font-size: 46px; }
+  .hero .role { font-size: 15px; }
+  .hero .intro { font-size: 17px; }
+  .page-title { font-size: 42px; }
+  .project .row { grid-template-columns: 120px 230px 1fr 70px; padding-top: 16px; padding-bottom: 16px; }
+  .project-desc { font-size: 16px; }
+  .project-entry { grid-template-columns: 440px 1fr; gap: 40px; }
+  .course, .entries, .pub, .lede, .page-head { max-width: 860px; }
+}
 
 /* ---------- Phones and portrait tablets ---------- */
 

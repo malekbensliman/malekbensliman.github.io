@@ -39,7 +39,6 @@ PROJECTS = [
     ("tag-teaching", "MBA Copilot", "https://github.com/malekbensliman/mba-copilot"),
     ("tag-teaching", "CBS Concept Lab", "https://cbs-concept-lab.web.app/"),
     ("tag-experiment", "Copa Machina", "https://copa-machina.vercel.app/"),
-    ("tag-research", "Art valuation", "research.html#art-valuation"),
 ]
 
 NAV = [
@@ -261,7 +260,6 @@ PROJECT_PAGE = [
     ("cbs-concept-lab", "CBS Concept Lab", "tag-teaching", [("Live", "https://cbs-concept-lab.web.app/")],
      "marketing and statistics courses"),
     ("copa-machina", "Copa Machina", "tag-experiment", [("Live", "https://copa-machina.vercel.app/")], None),
-    ("art-valuation", "Art valuation", "tag-research", [("Paper", "research.html#art-valuation")], None),
 ]
 
 
@@ -279,6 +277,16 @@ def check_projects_page():
         if used:
             assert used in squash(el.get_text()), f"{name}: used-in {used!r}"
         assert el.select_one("img.project-shot, .project-shot"), f"{name}: no image/block"
+
+
+def check_home_publication():
+    sec = soup("index.html").select_one("#publication")
+    assert sec, "no #publication section on homepage"
+    t = squash(sec.get_text())
+    assert "Digital twins are funhouse mirrors" in t and "Science Advances" in t, f"publication text: {t[:100]}"
+    links = [a["href"] for a in sec.select("a[href]")]
+    assert "https://doi.org/10.1126/sciadv.aeh8260" in links, f"links {links}"
+    assert "Art valuation" not in text("index.html"), "art valuation should not be on homepage"
 
 
 def check_home_links_to_projects_page():

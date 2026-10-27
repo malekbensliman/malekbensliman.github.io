@@ -18,7 +18,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = ["index.html", "projects.html", "teaching.html", "research.html"]
-WIDTHS = [1280, 768, 390]
+WIDTHS = [1920, 1280, 768, 390]
 PORT = 8765
 BASE = f"http://localhost:{PORT}"
 SHOTS = ROOT / "docs" / "superpowers" / "screens"
@@ -68,6 +68,10 @@ def main():
                     tag = f"{name} @{width}"
                     results.append((f"{tag} overflow", page.evaluate(OVERFLOW_JS),
                                     f"scrollWidth {page.evaluate('document.documentElement.scrollWidth')}"))
+                    if width == 1920:
+                        main_w = page.locator("main").bounding_box()["width"]
+                        # On big monitors the content shouldn't sit in a narrow strip.
+                        results.append((f"{tag} content fills wide screen", main_w >= 1150, f"main {main_w:.0f}px"))
                     if name == "index.html":
                         box = page.locator(".hero-photo").bounding_box()
                         # The photo must not become a tall, narrow strip (e.g. iPad portrait).
