@@ -6,7 +6,7 @@
   --muted: #555;
   --rule: #e2e2e2;
   --link: #1d3a6e;
-  --wrap: 1280px;
+  --wrap: 1440px;
   --gutter: clamp(32px, 4vw, 64px);
 }
 
@@ -137,7 +137,7 @@ h1, h2, h3, p { margin: 0; }
 /* ---------- Home: projects ---------- */
 
 #projects { margin-top: 60px; scroll-margin-top: 24px; }
-#publication { margin-top: 48px; }
+#research { margin-top: 56px; }
 
 .projects { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
 
@@ -161,33 +161,45 @@ h1, h2, h3, p { margin: 0; }
 
 /* ---------- Inner pages: courses, entries ---------- */
 
-.lede { max-width: 760px; margin-bottom: 8px; }
+.lede { max-width: 860px; margin-bottom: 8px; }
 
-.course { border-top: 1px solid var(--rule); padding: 22px 0 24px; max-width: 760px; }
+/* Two columns on wide screens: name and details left, description right. */
+.course, .pub, .entries li {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 2fr;
+  grid-template-rows: auto 1fr; /* extra height goes below the details, not between title and details */
+  column-gap: 48px;
+  align-items: start;
+}
+.course > *, .pub > *, .entries li > * { grid-column: 1; }
+.course > p:not(.meta), .pub > details, .entries .entry-text { grid-column: 2; grid-row: 1 / span 2; }
+
+.course { border-top: 1px solid var(--rule); padding: 22px 0 24px; }
 .course:first-of-type { margin-top: 20px; }
 .course h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-.course .meta { margin: 4px 0 10px; }
+.course .meta { margin: 4px 0 0; }
 
-.entries { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+.entries { list-style: none; margin: 0; padding: 0; }
 .entries li { border-top: 1px solid var(--rule); padding: 14px 0; }
 .entries li:last-child { border-bottom: 1px solid var(--rule); }
 .entries strong { font-weight: 700; }
 .lede + .entries { margin-top: 16px; }
 
-.pub { border-top: 1px solid var(--rule); padding: 20px 0 22px; max-width: 760px; scroll-margin-top: 24px; }
+.pub { border-top: 1px solid var(--rule); padding: 20px 0 22px; scroll-margin-top: 24px; }
 .pub:first-of-type { margin-top: 4px; }
 .pub h3 { font-size: 18px; font-weight: 700; line-height: 1.3; }
 .pub h3 a { color: var(--ink); }
 .pub h3 a:hover { color: var(--link); }
 .pub .meta { margin-top: 6px; }
 .pub .meta b { font-weight: 600; color: var(--ink); }
-.pub details { margin-top: 10px; }
+.pub details { margin-top: 0; }
 .pub summary { cursor: pointer; color: var(--link); font-size: 14px; font-weight: 500; }
-.pub details p { margin-top: 10px; font-size: 15px; color: #333; }
+.pub details p { margin-top: 8px; font-size: 15px; color: #333; }
 
 /* ---------- Projects page ---------- */
 
-.see-all { margin-top: 14px; font-size: 14px; font-weight: 500; }
+h2.label a { color: var(--ink); }
+h2.label a:hover { color: var(--link); text-decoration: none; }
 
 .project-entry {
   display: grid;
@@ -219,7 +231,7 @@ h1, h2, h3, p { margin: 0; }
 
 /* ---------- Teaching: headshot ---------- */
 
-.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; max-width: 760px; }
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .headshot { width: 140px; height: 140px; object-fit: cover; object-position: 52% 18%; margin-top: 32px; }
 
 /* ---------- Footer ---------- */
@@ -231,7 +243,6 @@ h1, h2, h3, p { margin: 0; }
   margin-top: 80px;
   padding-top: 18px;
   padding-bottom: 40px;
-  border-top: 1px solid var(--rule);
   font-size: 13px;
   color: var(--muted);
 }
@@ -249,7 +260,6 @@ h1, h2, h3, p { margin: 0; }
   .project .row { grid-template-columns: 120px 230px 1fr 70px; padding-top: 16px; padding-bottom: 16px; }
   .project-desc { font-size: 16px; }
   .project-entry { grid-template-columns: 440px 1fr; gap: 40px; }
-  .course, .entries, .pub, .lede, .page-head { max-width: 860px; }
 }
 
 /* ---------- Phones and portrait tablets ---------- */
@@ -267,6 +277,8 @@ h1, h2, h3, p { margin: 0; }
   .page-title { font-size: 30px; margin-top: 32px; }
 
   .project-entry { grid-template-columns: 1fr; gap: 16px; }
+  .course, .pub, .entries li { grid-template-columns: 1fr; }
+  .course > p:not(.meta), .pub > details, .entries .entry-text { grid-column: 1; grid-row: auto; margin-top: 10px; }
   .headshot { width: 96px; height: 96px; margin-top: 24px; }
 
   .project .row {

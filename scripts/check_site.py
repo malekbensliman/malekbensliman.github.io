@@ -279,20 +279,34 @@ def check_projects_page():
         assert el.select_one("img.project-shot, .project-shot"), f"{name}: no image/block"
 
 
-def check_home_publication():
-    sec = soup("index.html").select_one("#publication")
-    assert sec, "no #publication section on homepage"
-    t = squash(sec.get_text())
-    assert "Digital twins are funhouse mirrors" in t and "Science Advances" in t, f"publication text: {t[:100]}"
-    links = [a["href"] for a in sec.select("a[href]")]
-    assert "https://doi.org/10.1126/sciadv.aeh8260" in links, f"links {links}"
-    assert "Art valuation" not in text("index.html"), "art valuation should not be on homepage"
+HOME_RESEARCH = [
+    "https://doi.org/10.1126/sciadv.aeh8260",
+    "research.html#art-valuation",
+    "research.html#llm-mixture",
+]
+
+
+def check_home_research():
+    s = soup("index.html")
+    label = s.select_one("#research h2.label a")
+    assert label and label["href"] == "research.html" and "Selected research" in squash(label.get_text()), "research label link"
+    rows = [a["href"] for a in s.select("#research .project a.row")]
+    assert rows == HOME_RESEARCH, f"research rows {rows}"
+    t = text("index.html")
+    for gone in ["See all projects", "All research", "Recent publication"]:
+        assert gone not in t, f"homepage still has {gone!r}"
 
 
 def check_home_links_to_projects_page():
-    s = soup("index.html")
-    more = [a for a in s.select("#projects a") if a["href"] == "projects.html"]
-    assert more and "See all projects" in squash(more[0].get_text()), "no 'See all projects' link"
+    label = soup("index.html").select_one("#projects h2.label a")
+    assert label and label["href"] == "projects.html" and "Selected projects" in squash(label.get_text()), "projects label link"
+
+
+def check_no_double_rule_above_footer():
+    css = (ROOT / "style.css").read_text(encoding="utf-8")
+    blocks = re.findall(r"^\.site-footer \.wrap \{([^}]*)\}", css, re.M)
+    assert blocks, "no .site-footer .wrap block found"
+    assert not any("border-top" in b for b in blocks), "footer rule doubles up with the last item's rule"
 
 
 def check_teaching_headshot():

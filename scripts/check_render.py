@@ -71,7 +71,10 @@ def main():
                     if width == 1920:
                         main_w = page.locator("main").bounding_box()["width"]
                         # On big monitors the content shouldn't sit in a narrow strip.
-                        results.append((f"{tag} content fills wide screen", main_w >= 1150, f"main {main_w:.0f}px"))
+                        results.append((f"{tag} content fills wide screen", main_w >= 1300, f"main {main_w:.0f}px"))
+                        # Text blocks on inner pages should use the width too, not sit in a narrow left column.
+                        widest = page.evaluate("Math.max(0, ...[...document.querySelectorAll('.course, .pub, .entries, .project-entry')].map(e => e.getBoundingClientRect().width))")
+                        results.append((f"{tag} text blocks use the width", widest == 0 or widest >= 1150, f"widest block {widest:.0f}px"))
                     if name == "index.html":
                         box = page.locator(".hero-photo").bounding_box()
                         natural = page.evaluate("(() => { const i = document.querySelector('.hero-photo'); return i.naturalWidth / i.naturalHeight; })()")
