@@ -93,6 +93,8 @@ def main():
                         nat = page.evaluate("(() => { const i = document.querySelector('img.headshot'); return i.naturalWidth / i.naturalHeight; })()")
                         results.append((f"{tag} headshot not cropped", abs(shot["width"] / shot["height"] - nat) < 0.02,
                                         f"{shot['width']:.0f}x{shot['height']:.0f}"))
+                        min_w = {1920: 440, 1280: 380, 768: 300, 390: 300}[width]
+                        results.append((f"{tag} headshot big enough", shot["width"] >= min_w, f"{shot['width']:.0f}px < {min_w}"))
                         # Headshot leads the header (left of the title, or above it on phones) instead of floating far right.
                         leads = shot["x"] + shot["width"] <= title["x"] or shot["y"] + shot["height"] <= title["y"]
                         results.append((f"{tag} headshot leads the header", leads, f"shot x={shot['x']:.0f} title x={title['x']:.0f}"))
