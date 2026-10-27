@@ -155,7 +155,7 @@ def check_local_links_resolve():
             ref = el.get("href") or el.get("src")
             if re.match(r"^(https?:|mailto:|data:|#)", ref):
                 continue
-            path = ref.split("#")[0]
+            path = re.split(r"[?#]", ref)[0]
             assert (ROOT / path).is_file(), f"{page}: broken local link {ref!r}"
 
 
@@ -242,6 +242,13 @@ def check_no_street_address_in_repo():
         if Path(f).suffix in {".html", ".css", ".py", ".md", ".txt", ""}:
             hit = pattern.search((ROOT / f).read_text(encoding="utf-8", errors="ignore"))
             assert not hit, f"{f}: street-address-like text {hit[0]!r}"
+
+
+def check_stylesheet_versioned():
+    # GitHub Pages caches style.css for 10 minutes; a version tag makes browsers refetch it.
+    for page in existing_pages():
+        hrefs = [l["href"] for l in soup(page).select('link[rel="stylesheet"]') if "style.css" in l["href"]]
+        assert hrefs and all(re.fullmatch(r"style\.css\?v=\d+", h) for h in hrefs), f"{page}: {hrefs}"
 
 
 def check_head():
