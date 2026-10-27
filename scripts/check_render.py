@@ -87,6 +87,15 @@ def main():
                                         f"{box['width']:.0f}x{box['height']:.0f}"))
                     # Lazy images load only near the viewport: force them to load, then wait.
                     page.evaluate(LOAD_ALL_IMAGES_JS)
+                    if name == "teaching.html":
+                        shot = page.locator("img.headshot").bounding_box()
+                        title = page.locator("h1.page-title").bounding_box()
+                        nat = page.evaluate("(() => { const i = document.querySelector('img.headshot'); return i.naturalWidth / i.naturalHeight; })()")
+                        results.append((f"{tag} headshot not cropped", abs(shot["width"] / shot["height"] - nat) < 0.02,
+                                        f"{shot['width']:.0f}x{shot['height']:.0f}"))
+                        # Headshot leads the header (left of the title, or above it on phones) instead of floating far right.
+                        leads = shot["x"] + shot["width"] <= title["x"] or shot["y"] + shot["height"] <= title["y"]
+                        results.append((f"{tag} headshot leads the header", leads, f"shot x={shot['x']:.0f} title x={title['x']:.0f}"))
                     broken = page.evaluate(BROKEN_IMAGES_JS)
                     results.append((f"{tag} images", not broken, f"broken: {broken}"))
                     results.append((f"{tag} console", not errors, f"errors: {errors}"))

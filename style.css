@@ -231,8 +231,11 @@ h2.label a:hover { color: var(--link); text-decoration: none; }
 
 /* ---------- Teaching: headshot ---------- */
 
-.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.headshot { width: 140px; height: 140px; object-fit: cover; object-position: 52% 18%; margin-top: 32px; }
+/* Small header like the homepage hero: headshot (uncropped) beside the title and intro line. */
+.page-head { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; margin-top: 40px; }
+.page-head .page-title { margin-top: 0; }
+.page-head .lede { margin-top: 12px; }
+.headshot { width: 100%; height: auto; }
 
 /* ---------- Footer ---------- */
 
@@ -257,6 +260,7 @@ h2.label a:hover { color: var(--link); text-decoration: none; }
   .hero .role { font-size: 15px; }
   .hero .intro { font-size: 17px; }
   .page-title { font-size: 42px; }
+  .page-head { grid-template-columns: 360px 1fr; }
   .project .row { grid-template-columns: 120px 230px 1fr 70px; padding-top: 16px; padding-bottom: 16px; }
   .project-desc { font-size: 16px; }
   .project-entry { grid-template-columns: 440px 1fr; gap: 40px; }
@@ -279,7 +283,8 @@ h2.label a:hover { color: var(--link); text-decoration: none; }
   .project-entry { grid-template-columns: 1fr; gap: 16px; }
   .course, .pub, .entries li { grid-template-columns: 1fr; }
   .course > p:not(.meta), .pub > details, .entries .entry-text { grid-column: 1; grid-row: auto; margin-top: 10px; }
-  .headshot { width: 96px; height: 96px; margin-top: 24px; }
+  .page-head { grid-template-columns: 1fr; gap: 20px; margin-top: 24px; }
+  .headshot { width: 240px; }
 
   .project .row {
     grid-template-columns: auto 1fr auto;

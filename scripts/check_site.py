@@ -227,6 +227,8 @@ def check_research():
     meta = squash(twins.select_one(".meta").get_text())
     assert meta.startswith(DIGITAL_TWINS_AUTHORS), f"digital twins authors: {meta[:120]}..."
     assert "orcid" not in meta.lower() and "et al" not in meta, "author list should be full and clean"
+    abstract = twins.select_one("details")
+    assert abstract and "19 preregistered studies" in squash(abstract.get_text()), "digital twins abstract"
     hrefs = [a["href"] for a in s.select("a[href]")]
     for doi in ["https://doi.org/10.1177/00222429211028145", "https://doi.org/10.1126/sciadv.aeh8260"]:
         assert doi in hrefs, f"missing {doi}"
