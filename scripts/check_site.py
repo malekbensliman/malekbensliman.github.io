@@ -192,7 +192,7 @@ def check_teaching():
     assert email and email[0]["href"] == "mailto:mab2343@columbia.edu", "email me link"
     for needle in ["since Fall 2023", "co-designed with Olivier Toubia",
                    "As generative AI was going mainstream", "AI for Academic Research",
-                   "AI for Business & Finance", ADVISING]:
+                   "AI for Business & Finance", "Olivier Toubia and I covered generative AI for business", ADVISING]:
         assert needle in t, f"missing {needle!r}"
     hrefs = [a["href"] for a in s.select("a[href]")]
     for url in ["https://capitaria.com/", "https://www.mamy-opticians.com/"]:
