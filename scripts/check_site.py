@@ -283,6 +283,7 @@ def check_projects_page():
 
 HOME_RESEARCH = [
     "https://doi.org/10.1126/sciadv.aeh8260",
+    "https://doi.org/10.1177/00222429211028145",
     "research.html#art-valuation",
     "research.html#llm-mixture",
 ]
