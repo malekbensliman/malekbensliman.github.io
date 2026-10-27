@@ -74,6 +74,11 @@ def main():
                         results.append((f"{tag} content fills wide screen", main_w >= 1150, f"main {main_w:.0f}px"))
                     if name == "index.html":
                         box = page.locator(".hero-photo").bounding_box()
+                        natural = page.evaluate("(() => { const i = document.querySelector('.hero-photo'); return i.naturalWidth / i.naturalHeight; })()")
+                        # The stage photo is chosen for the open-hand gesture: show it whole, never cropped.
+                        shown = box["width"] / box["height"]
+                        results.append((f"{tag} hero photo not cropped", abs(shown - natural) < 0.02,
+                                        f"shown {shown:.3f} vs natural {natural:.3f}"))
                         # The photo must not become a tall, narrow strip (e.g. iPad portrait).
                         results.append((f"{tag} hero photo not a tall strip", box["height"] <= box["width"] * 1.2,
                                         f"{box['width']:.0f}x{box['height']:.0f}"))
