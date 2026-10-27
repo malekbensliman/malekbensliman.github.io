@@ -300,6 +300,13 @@ def check_teaching_headshot():
     assert img and img["src"] == "photo-headshot.jpg", "teaching page headshot"
 
 
+def check_favicon():
+    assert (ROOT / "favicon.svg").is_file(), "missing favicon.svg"
+    for page in existing_pages():
+        icons = [l["href"] for l in soup(page).select('link[rel="icon"]')]
+        assert icons == ["favicon.svg"], f"{page}: icons {icons}"
+
+
 def check_head():
     for page in existing_pages():
         s = soup(page)
