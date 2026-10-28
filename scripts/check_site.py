@@ -324,6 +324,18 @@ def check_favicon():
         assert icons == ["favicon.svg"], f"{page}: icons {icons}"
 
 
+def check_arrows_same_glyph():
+    # ↗ comes from a different fallback font than →, so it renders thinner and shorter.
+    # Every arrow is the same → glyph; outbound ones are rotated in CSS.
+    for page in existing_pages():
+        assert "↗" not in (ROOT / page).read_text(), f"{page}: uses ↗ glyph"
+        for span in soup(page).find_all("span", attrs={"aria-hidden": "true"}):
+            if span.get_text() == "→":
+                assert "arrow" in span.get("class", []), f"{page}: arrow span without .arrow"
+    css = (ROOT / "style.css").read_text()
+    assert re.search(r"\.arrow-out \{[^}]*rotate\(-45deg\)", css), "no rotated .arrow-out rule"
+
+
 def check_head():
     for page in existing_pages():
         s = soup(page)

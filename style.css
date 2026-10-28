@@ -31,6 +31,10 @@ a:hover { text-decoration: underline; }
 
 h1, h2, h3, p { margin: 0; }
 
+/* One arrow glyph everywhere; links that leave the site tilt it up-right. */
+.arrow { display: inline-block; }
+.arrow-out { transform: rotate(-45deg); }
+
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;
